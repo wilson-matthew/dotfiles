@@ -1,0 +1,3 @@
+Use `opts = {}` to force a plugin to be loaded, or to set options.
+E.g. `{ 'numToStr/Comment.nvim', opts = {} }`
+It is equivalent to `require(Comment).setup({})`
