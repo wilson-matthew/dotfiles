@@ -1,0 +1,11 @@
+# Simple search:
+rg <search query>
+
+# Search for a particular file extension:
+rg -t <file extension> <search query>
+
+# Exlude a directory
+rg -g '!my-dir' <search query>
+
+# Include hidden files
+rg --hidden <search query>
