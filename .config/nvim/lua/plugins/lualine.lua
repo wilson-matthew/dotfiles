@@ -42,10 +42,10 @@ return {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {
-    lualine_a = {},
-    lualine_z = {"os.date('%a %d %b %H:%M')"},
-  },
+  -- tabline = {
+  --   lualine_a = {},
+  --   lualine_z = {"os.date('%a %d %b %H:%M')"},
+  -- },
   winbar = {},
   inactive_winbar = {},
   extensions = {}
