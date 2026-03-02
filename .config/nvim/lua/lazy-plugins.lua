@@ -20,9 +20,6 @@ require('lazy').setup({
   --  This is equivalent to:
   --    require('Comment').setup({})
 
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
-
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
 
@@ -30,17 +27,15 @@ require('lazy').setup({
 
   require 'plugins/barbecue',
 
-  -- require 'plugins/github-nvim-theme',
+  require 'plugins/comment',
+
+  require 'plugins/copilot',
+
+  require 'plugins/file_line',
 
   require 'plugins/gitsigns',
 
-  -- require 'plugins/gruvbox',
-
   require 'plugins/harpoon',
-
-  -- require 'plugins/indent-line', VS code-sytle indent lines; currently disabled because makes things nosier so prefer off if not needed
-
-  -- require 'plugins/kanagawa',
 
   require 'plugins/lsp',
 
@@ -50,29 +45,19 @@ require('lazy').setup({
 
   require 'plugins/material',
 
-  -- require 'plugins/nightfox',
-
-  -- require 'plugins/onedark',
-
-  -- require 'plugins/onedarkpro',
-
   -- require 'plugins/render-markdown',
 
   require 'plugins/telescope',
 
-  -- require 'plugins/tokyonight',
+  require 'plugins/todo-comments',
 
   require 'plugins/treesitter',
-
-  -- require 'plugins/vim-nightfly-colors',
 
   require 'plugins/vim-go',
 
   require 'plugins/vim-sleuth',
 
   require 'plugins/vim-terraform',
-
-  -- require 'plugins/vscode',
 
 }, {
   ui = {
@@ -95,5 +80,3 @@ require('lazy').setup({
     },
   },
 })
-
--- vim: ts=2 sts=2 sw=2 et

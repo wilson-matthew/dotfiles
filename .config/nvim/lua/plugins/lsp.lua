@@ -33,7 +33,7 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "yamlls",
-                -- "gopls",
+                "gopls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)

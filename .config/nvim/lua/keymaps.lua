@@ -6,10 +6,10 @@ vim.keymap.set('n', '<leader>V', '<C-v>', { desc = '[V]isual block mode' })
 
 -- Explorer keymaps
 vim.keymap.set('n', '<leader>ee', vim.cmd.Ex, { desc = 'Open netrw file [E]xplorer' })
-vim.keymap.set('n', '<leader>et', '<cmd>Hex!<CR>', { desc = 'Open netrw file [E]xplorer to the [T]op'})
-vim.keymap.set('n', '<leader>eb', '<cmd>Hex<CR>', { desc = 'Open netrw file [E]xplorer to the [B]ottom'})
-vim.keymap.set('n', '<leader>el', '<cmd>Vex!<CR>', { desc = 'Open netrw file [E]xplorer to the [L]eft'})
-vim.keymap.set('n', '<leader>er', '<cmd>Vex<CR>', { desc = 'Open netrw file [E]xplorer to the [R]ight'})
+vim.keymap.set('n', '<leader>ek', '<cmd>Hex!<CR>', { desc = 'Open netrw file [E]xplorer to the top'})
+vim.keymap.set('n', '<leader>ej', '<cmd>Hex<CR>', { desc = 'Open netrw file [E]xplorer to the bottom'})
+vim.keymap.set('n', '<leader>eh', '<cmd>Vex!<CR>', { desc = 'Open netrw file [E]xplorer to the left'})
+vim.keymap.set('n', '<leader>el', '<cmd>Vex<CR>', { desc = 'Open netrw file [E]xplorer to the right'})
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
@@ -57,7 +57,7 @@ vim.keymap.set('n', '<leader>bd', ':bd<CR>', { desc = '[B]uffer [D]elete' })
 vim.keymap.set('n', '<leader>bl', ':b#<CR>', { desc = 'Switch to [L]ast opened [B]uffer' })
 
 -- Window keymaps
-vim.keymap.set('n', '<leader>wh', '<C-w>h')
-vim.keymap.set('n', '<leader>wj', '<C-w>j')
-vim.keymap.set('n', '<leader>wk', '<C-w>k')
-vim.keymap.set('n', '<leader>wl', '<C-w>l')
+vim.keymap.set('n', '<leader>wh', '<C-w>h', { desc = 'Select [Window] to the left' })
+vim.keymap.set('n', '<leader>wj', '<C-w>j', { desc = 'Select [Window] to the top' })
+vim.keymap.set('n', '<leader>wk', '<C-w>k', { desc = 'Select [Window] to the bottom' })
+vim.keymap.set('n', '<leader>wl', '<C-w>l', { desc = 'Select [Window] to the right '})

@@ -1,6 +1,5 @@
 -- [[ Setting options ]]
 -- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
 -- Make line numbers and relative line numbers default
@@ -11,7 +10,6 @@ vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
--- I've enabled this whilst working out how to use the status line
 vim.opt.showmode = false
 
 -- Sync clipboard between OS and Neovim.
@@ -76,4 +74,3 @@ vim.cmd([[
     autocmd VimEnter * if argc() == 0 | Explore! | endif
   augroup END
 ]])
--- vim: ts=2 sts=2 sw=2 et
