@@ -2,6 +2,15 @@
 -- See `:help vim.opt`
 --  For more options, you can see `:help option-list`
 
+-- Set <space> as the leader key
+-- See `:help mapleader`
+-- NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- Set to true if you have a Nerd Font installed and selected in the terminal
+vim.g.have_nerd_font = true
+
 -- Make line numbers and relative line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -11,11 +20,6 @@ vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- vim.opt.clipboard = 'unnamedplus'
 
 -- Enable break indent
 -- Wrapped lines continue visually indented - so preserves horizontal blocks of text
@@ -37,10 +41,6 @@ vim.opt.signcolumn = 'yes'
 -- Decrease update time
 vim.opt.updatetime = 250
 
--- Decrease mapped sequence wait time
--- Displays which-key popup sooner
-vim.opt.timeoutlen = 1000
-
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
@@ -60,14 +60,18 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Add a rounded border to windows (e.g. autocomplete suggestions)
+vim.opt.winborder = "rounded"
+
 -- netrw config
-vim.g.netrw_banner = 0 -- use = 1 to enable banner
+vim.g.netrw_banner = 0 -- disables banner
 vim.cmd([[
   augroup netrw
     autocmd!
     autocmd FileType netrw setlocal bufhidden=wipe
   augroup end
 ]])
+-- open netrw on startup if no arguments supplied
 vim.cmd([[
   augroup ProjectDrawer
     autocmd!

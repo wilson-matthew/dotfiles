@@ -1,39 +1,37 @@
 return {
-    "neovim/nvim-lspconfig",
+    "neovim/nvim-lspconfig", -- automatically adds langauge server configs; a collection of LSP server configs for the nvim lsp client
     dependencies = {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/nvim-cmp",
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
-        "j-hui/fidget.nvim",
+        "mason-org/mason.nvim", -- install different language servers
+        "mason-org/mason-lspconfig.nvim", -- bridges mason with nvim-lspconfig; makes it easier to use them together
+        "hrsh7th/cmp-nvim-lsp", -- provides lsp autocompletion; nvim-cmp source for nvim's built in language server client
+        "hrsh7th/cmp-buffer", -- source for text in buffer
+        "hrsh7th/cmp-path", -- source for system file paths
+        "hrsh7th/nvim-cmp", -- completion engine allowing external completion sources
+        "L3MON4D3/LuaSnip", -- snippets
+        "saadparwaiz1/cmp_luasnip", -- makes luasnip work as a source for nvim-cmp
     },
 
     config = function()
         local cmp = require('cmp')
-        local cmp_lsp = require("cmp_nvim_lsp")
+
+        local cmp_lsp = require("cmp_nvim_lsp") -- imports cmp_nvim_lsp plugin
+
+        -- used to enable autocompletion (assign to every lsp server config)
         local capabilities = vim.tbl_deep_extend(
             "force",
             {},
             vim.lsp.protocol.make_client_capabilities(),
             cmp_lsp.default_capabilities())
 
-        capabilities.textDocument.foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true
-        }
-
-        require("fidget").setup({})
         require("mason").setup()
+
         require("mason-lspconfig").setup({
             ensure_installed = {
-                "lua_ls",
-                "yamlls",
+                "bashls",
+                "golangci_lint_ls",
                 "gopls",
+                "lua_ls",
+                "terraformls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -41,65 +39,6 @@ return {
                         capabilities = capabilities
                     }
                 end,
-
-                zls = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.zls.setup({
-                        root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
-                        settings = {
-                            zls = {
-                                enable_inlay_hints = true,
-                                enable_snippets = true,
-                                warn_style = true,
-                            },
-                        },
-                    })
-                    vim.g.zig_fmt_parse_errors = 0
-                    vim.g.zig_fmt_autosave = 0
-
-                end,
-                ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            Lua = {
-                                runtime = { version = "Lua 5.1" },
-                                diagnostics = {
-                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
-                                }
-                            }
-                        }
-                    }
-                end,
-                ["yamlls"] = function()
-                    require("lspconfig").yamlls.setup {
-                        capabilities = capabilities,
-                        settings = {
-                            yaml = {
-                                schemas = {
-                                    kubernetes = "/*.yaml",
-                                }
-                            }
-                        }
-                    }
-                end,
-                -- ["azure_pipelines_ls"] = function()
-                --     local lspconfig = require("lspconfig")
-                --     lspconfig.azure_pipelines_ls.setup {
-                --         root_dir = lspconfig.util.root_pattern(".git"),
-                --         settings = {
-                --             yaml = {
-                --                 schemas = {
-                --                     ["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
-                --                         "azure-pipelines.yaml",
-                --                         "ci/**/*.y*l",
-                --                     }
-                --                 }
-                --             }
-                --         }
-                --     }
-                -- end,
             }
         })
 
@@ -112,21 +51,25 @@ return {
                 end,
             },
             mapping = cmp.mapping.preset.insert({
-                ['<C>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<Tab>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<CR>'] = cmp.mapping.confirm({ select = true }),
-                ["<C-Space>"] = cmp.mapping.complete(),
+                ['<C-k>'] = cmp.mapping.select_prev_item(cmp_select), -- previous suggestion
+                ['<C-j>'] = cmp.mapping.select_next_item(cmp_select), -- next suggestion
+                -- ['<Tab>'] = cmp.mapping.select_next_item(cmp_select), -- next suggestion
+                ['<C-b>'] = cmp.mapping.scroll_docs(-4), -- work out good keybinding
+                ['<C-f>'] = cmp.mapping.scroll_docs(4), -- work out good keybinding
+                ['<C-y>'] = cmp.mapping.confirm({ select = true }), -- use suggestion
+                -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- use suggestion
+                ['<C-e>'] = cmp.mapping.abort(), -- close completion window
+                ['<C-Space>'] = cmp.mapping.complete(), -- show completion suggestions
             }),
             sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' }, -- For luasnip users.
-            }, {
-                { name = 'buffer' },
+                { name = 'nvim_lsp' }, -- lsp
+                { name = 'luasnip' }, -- snippets
+                { name = 'buffer' }, -- text within current buffer
+                { name = 'path' }, -- file paths
             })
         })
 
         vim.diagnostic.config({
-            -- update_in_insert = true,
             float = {
                 focusable = false,
                 style = "minimal",

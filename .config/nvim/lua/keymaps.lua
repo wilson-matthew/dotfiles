@@ -21,27 +21,13 @@ vim.keymap.set('n', 'dn', vim.diagnostic.goto_next, { desc = 'Go to [D]iagnostic
 vim.keymap.set('n', 'de', vim.diagnostic.open_float, { desc = 'Show [D]iagnostic [E]rror messages' })
 vim.keymap.set('n', 'dq', vim.diagnostic.setloclist, { desc = 'Open [D]iagnostic [Q]uickfix list' })
 
--- Terminal keymaps
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
--- NOTE: This doesn't close the window - just exits terminal mode
--- Once you're out of terminl mode, just use :q as usual to quit the window
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
-vim.keymap.set('n', '<leader>vt', '<cmd>vert term<CR>')
-vim.keymap.set('n', '<leader>ht', '<cmd>hori term<CR>')
-
 -- Allows you to move block of text when highlighted using J and K
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move highlighted text downwards' })
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move highlighted text upwards' })
 
 -- Auto place cursor in centre of screen when scrolling
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = 'Places cursor in the centre of screen when scrolling' })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = 'Places cursor in the centre of screen when scrolling' })
 
 -- Use <leader>y to copy to OS clipboard
 vim.keymap.set("n", "<leader>y", "\"+y", { desc = 'Copy text to OS clipboard' })

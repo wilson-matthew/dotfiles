@@ -1,3 +1,4 @@
+-- provides breadcrumb-like bar in the tabline
 return {
   {
     "utilyre/barbecue.nvim",
