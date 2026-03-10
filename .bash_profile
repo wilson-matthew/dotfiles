@@ -26,15 +26,18 @@ alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles" --work-tree="$HOME"'
 alias dotfiles-list="dotfiles ls-tree -r main --name-only"
 
 # General aliases
+alias :q="exit"
 alias c="clear"
 alias cat="bat --plain --paging=never"
 alias ccat="clear ; cat"
+alias c.="clear ; fc -s"
 alias diff="colordiff -u"
-alias la="ls -Al"
+alias la="ls -A"
 alias ll="ls -l"
+alias lla="ls -lA"
 alias l.="ls -ld .?*"
-alias myip="curl -4 icanhazip.com"
-alias myip6="curl -6 icanhazip.com"
+alias myip="curl -s -4 icanhazip.com | tee >(pbcopy)"
+alias myip6="curl -s -6 icanhazip.com | tee >(pbcopy)"
 alias pod="echo $OLDPWD"
 alias service='echo ${PWD##*/}'
 alias week="date +%W"
@@ -58,6 +61,7 @@ export FZF_DEFAULT_OPTS="--preview 'bat --color=always {}'"
 alias ga="git add"
 alias gb="git checkout -b"
 alias gbm="git branch --merged"
+alias gbmd="git branch --merged | grep -Ev '(^\*|^\+|master|main|dev)' | xargs --no-run-if-empty git branch -d"
 alias gc="git checkout"
 alias gcm="git commit -m"
 alias gd="git diff"
@@ -76,7 +80,9 @@ alias kdp="kubectl describe pod"
 alias kgn="kubectl get namespace"
 alias kgp="kubectl get pod"
 alias kgpa="kubectl get pod --all-namespaces"
+alias kgpn="kubectl get pod -n"
 alias kgc="kubectl get pods -o jsonpath='{.spec.containers[*].name}'"
+alias ku="kustomize"
 
 # Kubernetes config
 export KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
@@ -105,4 +111,14 @@ replace() {
     rg -l "$1" | xargs sed -i '' -e "s/$1/$2/g"
 }
 
-export PATH="/opt/local/bin:/opt/local/sbin:$HOME/go/bin:$HOME/.tfenv/bin:$HOME/Library/Python:$PATH"
+# "Grep" and include header
+greph() {
+    INPUT=$(echo $1 | sed 's/\//\\\//g')
+    sed -n "1p;/$INPUT/p"
+}
+
+diffl() {
+    diff "$1" "$2" | less -R
+}
+
+export PATH="/opt/local/bin:/opt/local/sbin:$HOME/go/bin:$HOME/.tfenv/bin:$HOME/Library/Python/3.12/bin:$HOME/.local/bin:$HOME/.opencode/bin:$PATH"
