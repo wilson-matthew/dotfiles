@@ -70,6 +70,10 @@ alias gl="git log"
 alias gs="git status"
 alias version='git describe --tags $(git rev-list --tags --max-count=1)'
 
+# Completion config
+test -f ~/.config/completion/git-completion.bash && . $_ # $_ is the last argument to the previous command
+test -f ~/.config/completion/kubectl-completion.bash && . $_ && complete -F __start_kubectl k # enable completion for k alias
+
 # Javascript config
 export NODE_OPTIONS=--openssl-legacy-provider
 
